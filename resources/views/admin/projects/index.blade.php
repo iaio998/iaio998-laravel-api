@@ -7,6 +7,7 @@
             <button class="btn btn-success"><a href="{{route('admin.projects.create')}}">Create new</a></button>
             @include('admin.projects.partials.table')
         </div>
+        {{$projects->links('vendor.pagination.bootstrap-5')}}
     </div>
 </div>
 @endsection

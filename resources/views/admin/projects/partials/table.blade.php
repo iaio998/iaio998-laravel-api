@@ -23,11 +23,11 @@
             <a href="{{$project->url}}">Link to project</a>
         </td>
         <td>
-            <a class="btn btn-primary" href="{{route('admin.projects.show', $project)}}"><i
+            <a class="btn btn-primary" href="{{route('admin.projects.show', $project->slug)}}"><i
                     class="fa-solid fa-eye"></i></a>
-            <a class="btn btn-warning" href="{{route('admin.projects.edit', $project)}}"><i
+            <a class="btn btn-warning" href="{{route('admin.projects.edit', $project->slug)}}"><i
                     class="fa-solid fa-pencil"></i></a>
-            <form class="d-inline" action="{{route('admin.projects.destroy', $project)}}" method="POST">
+            <form class="d-inline" action="{{route('admin.projects.destroy', $project->slug)}}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>

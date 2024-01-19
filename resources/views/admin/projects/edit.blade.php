@@ -60,13 +60,18 @@
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-3">
-            <label for="image">Image URL:</label>
-            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image"
-                maxlength="200" minlength="3" value="{{old('image', $project->image)}}">
-            @error('image')
-            <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+        <div class="d-flex">
+            <div class="media me-4">
+                <img class="shadow" width="150" src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}">
+            </div>
+            <div class="mb-3">
+                <label for="image">Image URL:</label>
+                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image"
+                    maxlength="200" minlength="3" value="{{old('image', $project->image)}}">
+                @error('image')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
         <div class="mb-3">
             <label for="url">Project URL:</label>

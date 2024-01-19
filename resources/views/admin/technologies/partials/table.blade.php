@@ -9,15 +9,17 @@
             <h5 class="">{{$technology->name}}</h5>
         </td>
         <td>
-            <a class="btn btn-primary" href="{{route('admin.technologies.show', $technology)}}"><i
+            <a class="btn btn-primary" href="{{route('admin.technologies.show', $technology->slug)}}"><i
                     class="fa-solid fa-eye"></i></a>
-            <a class="btn btn-warning" href="{{route('admin.technologies.edit', $technology)}}"><i
+            @if(Auth::id() == 1)
+            <a class="btn btn-warning" href="{{route('admin.technologies.edit', $technology->slug)}}"><i
                     class="fa-solid fa-pencil"></i></a>
-            <form class="d-inline" action="{{route('admin.technologies.destroy', $technology)}}" method="POST">
+            <form class="d-inline" action="{{route('admin.technologies.destroy', $technology->slug)}}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
             </form>
+            @endif
         </td>
     </tr>
     @endforeach

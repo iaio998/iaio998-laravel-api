@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <h1>Edit: {{$technology->name}}</h1>
-    <form action="{{route('admin.technologies.update', $technology)}}" enctype="multipart/form-data" method="POST">
+    <form action="{{route('admin.technologies.update', $technology->slug)}}" enctype="multipart/form-data"
+        method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">

@@ -144,6 +144,8 @@ php artisan migrate
 
 #revert migration
 php artisan migrate:rollback
+php artisan migrate:reset
+php artisan migrate:fresh
 
 
 #popolare il db

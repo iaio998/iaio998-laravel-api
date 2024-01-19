@@ -38,10 +38,10 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $data = $request->validated();
-        $slug = Str::slug($data['name'], '-');
+        $slug = Str::of($data['name'])->slug('-');
         $data['slug'] = $slug;
         $category = Category::create($data);
-        return redirect()->route('admin.categories.show', $category);
+        return redirect()->route('admin.categories.show', $category->slug);
     }
 
     /**
@@ -70,14 +70,15 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $data = $request->validated();
+        $data['slug'] = $category->slug;
         if ($category->name !== $data['name']) {
-            $slug = Str::slug($data['name'], '-');
-        } else {
-            $slug = $category->slug;
+            //CREATE SLUG
+            $slug = Str::of($data['name'])->slug('-');
+            $data['slug'] = $slug;
         }
-        $data['slug'] = $slug;
+
         $category->update($data);
-        return redirect()->route('admin.categories.show', $category);
+        return redirect()->route('admin.categories.show', $category->slug);
     }
 
     /**
@@ -90,6 +91,6 @@ class CategoryController extends Controller
             abort(403);
         }
         $category->delete();
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('message', "$category->name deleted successfully");
     }
 }

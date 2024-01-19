@@ -10,11 +10,16 @@
                 {{ $category->name }}
             </h2>
             <ul>
-                @foreach($category->projects as $project)
-                <li>
-                    - {{$project->title}}
+                @forelse ($category->projects as $project)
+                @if (Auth::id() == $project->user_id || Auth::id() == 1)
+                <li class="list-group-item">
+                    <a href="{{route('admin.projects.show', $project->slug)}}"
+                        class="link-underline link-underline-opacity-0"> {{$project->title}}</a>
                 </li>
-                @endforeach
+                @endif
+                @empty
+                <li>No projects</li>
+                @endforelse
             </ul>
         </div>
     </div>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Edit: {{$category->name}}</h1>
-    <form action="{{route('admin.categories.update', $category)}}" enctype="multipart/form-data" method="POST">
+    <form action="{{route('admin.categories.update', $category->slug)}}" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">

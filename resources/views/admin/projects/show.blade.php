@@ -27,7 +27,7 @@
                 <p>Technologies:</p>
                 @foreach($project->technologies as $technology)
                 <a class="badge rounded-pill text-bg-success"
-                    href="{{route('admin.technologies.show', $technologynology->slug)}}">{{$technology->name}}</a>
+                    href="{{route('admin.technologies.show', $technology->slug)}}">{{$technology->name}}</a>
                 @endforeach
                 @else
                 <p>No category</p>

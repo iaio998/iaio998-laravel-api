@@ -62,7 +62,7 @@
         </div>
         <div class="d-flex">
             <div class="media me-4">
-                <img class="shadow" width="150" src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}">
+                <img class="shadow" width="150" src="{{asset('storage/' . $project->image)}}" alt="{{$project->title}}">
             </div>
             <div class="mb-3">
                 <label for="image">Image URL:</label>

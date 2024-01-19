@@ -33,7 +33,7 @@ Route::middleware(['auth', 'verified'])
             'categories' => 'category:slug'
         ]);
         Route::resource('technologies', TechnologyController::class)->parameters([
-            'technologies' => 'category:slug'
+            'technologies' => 'technology:slug'
         ]);
     });
 

@@ -22,8 +22,8 @@ class ProjectController extends Controller
     {
         $currentUserId = Auth::id();
         if ($currentUserId == 1) {
-            $projects = Project::all();
-            // $projects = Project::paginate(3);
+            $projects = Project::paginate(3);
+            // $projects = Project::all();
         } else {
             $projects = Project::where('user_id', $currentUserId)->paginate(3);
         }
@@ -47,18 +47,18 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         // $slug = Str::slug($data['title']);
-        $slug = Project::getSlug($data['title'], '-');
+        $slug = Project::getSlug($data['title']);
         $data['slug'] = $slug;
         $data['user_id'] = Auth::id();
         if ($request->hasFile('image')) {
-            $path = Storage::put('images', $request->image);
+            $path = Storage::put('images', $data['image']);
             $data['image'] = $path;
         }
         $project = Project::create($data);
         if ($request->has('technologies')) {
             $project->technologies()->attach($request->technologies);
         }
-        return redirect()->route('admin.projects.show', $project);
+        return redirect()->route('admin.projects.show', $project->slug);
     }
 
     /**
@@ -99,7 +99,7 @@ class ProjectController extends Controller
         $data['slug'] = $project->slug;
 
         if ($project->title !== $data['title']) {
-            $slug = Project::getSlug($data['title'], '-');
+            $slug = Project::getSlug($data['title']);
             $data['slug'] = $slug;
         }
 
@@ -120,7 +120,7 @@ class ProjectController extends Controller
         } else {
             $project->tags()->detach();
         }
-        return redirect()->route('admin.projects.show', $project);
+        return redirect()->route('admin.projects.show', $project->slug);
     }
 
     /**
@@ -137,6 +137,6 @@ class ProjectController extends Controller
             Storage::delete($project->image);
         }
         $project->delete();
-        return redirect()->route('admin.projects.index');
+        return redirect()->route('admin.projects.index')->with('message', "$project->title eliminato con successo");
     }
 }

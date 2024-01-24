@@ -8,9 +8,14 @@ use App\Models\Project;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::all();
+        if ($request->query('category')) {
+            $projects = Project::where('category_id', $request->query('category'))->get();
+        } else {
+            $projects = Project::all();
+        }
+
         return response()->json($projects);
     }
 

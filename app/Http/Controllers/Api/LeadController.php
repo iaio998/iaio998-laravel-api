@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewContact;
 
 class LeadController extends Controller
 {
@@ -38,11 +40,18 @@ class LeadController extends Controller
             'message' => 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ]);
         }
         $newLead = new Lead();
         $newLead->fill($data);
         $newLead->save();
+
+        Mail::to('info@boolfolio.com')->send(new NewContact($newLead));
+
+        return response()->json(['success' => true]);
     }
 
     /**

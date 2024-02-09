@@ -118,7 +118,7 @@ class ProjectController extends Controller
         if ($request->has('technologies')) {
             $project->technologies()->sync($request->technologies);
         } else {
-            $project->tags()->detach();
+            $project->technologies()->detach();
         }
         return redirect()->route('admin.projects.show', $project->slug);
     }
